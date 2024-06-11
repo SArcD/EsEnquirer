@@ -25,11 +25,11 @@ def administrar_encuesta():
         "¿Te resulta difícil encontrar soluciones a problemas simples?"
     ]
     
-    opciones = {'A': 0, 'B': 1, 'C': 2, 'D': 3}
+    opciones = {'Nunca': 0, 'Raramente': 1, 'A menudo': 2, 'Siempre': 3}
     respuestas = []
 
     for pregunta in preguntas:
-        respuesta = st.radio(pregunta, options=['A', 'B', 'C', 'D'], format_func=lambda x: opciones[x])
+        respuesta = st.radio(pregunta, options=list(opciones.keys()))
         respuestas.append(opciones[respuesta])
 
     return respuestas
