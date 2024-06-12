@@ -1,15 +1,10 @@
 seaborn
 pandas
 numpy
-matplotlib_venn
 matplotlib
 altair
 altair_catplot
 xlsxwriter
-datapane
-openpyxl
-googletrans
-textblob
 sklearn
 graphviz
 
