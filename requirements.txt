@@ -2,8 +2,3 @@ seaborn
 pandas
 numpy
 matplotlib
-altair
-
-
-
-
