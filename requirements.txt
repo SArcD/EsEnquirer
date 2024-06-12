@@ -3,10 +3,7 @@ pandas
 numpy
 matplotlib
 altair
-altair_catplot
-xlsxwriter
-scikit-learn
-graphviz
+
 
 
 
