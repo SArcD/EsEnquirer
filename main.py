@@ -63,9 +63,17 @@ def crear_grafico_radar(respuestas, categorias):
     fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
     ax.fill(angles, respuestas, color='red', alpha=0.25)
     ax.plot(angles, respuestas, color='red', linewidth=2)
-    ax.set_yticklabels([])
+    
+    # Ajustar etiquetas de los ejes
+    categorias_ajustadas = [f"Deficiencia en {cat}" for cat in categorias]
     ax.set_xticks(angles[:-1])
-    ax.set_xticklabels(categorias)
+    ax.set_xticklabels(categorias_ajustadas, wrap=True)
+    
+    # Evitar solapamiento de etiquetas
+    for label, angle in zip(ax.get_xticklabels(), angles):
+        label.set_horizontalalignment('center')
+    
+    ax.set_yticklabels([])
     
     return fig
 
