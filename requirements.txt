@@ -5,7 +5,7 @@ matplotlib
 altair
 altair_catplot
 xlsxwriter
-sklearn
+scikit-learn
 graphviz
 
 
