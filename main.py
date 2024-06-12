@@ -1,4 +1,6 @@
 import streamlit as st
+import matplotlib.pyplot as plt
+import numpy as np
 
 # Función para evaluar el comportamiento
 def evaluar_comportamiento(respuestas):
@@ -47,6 +49,26 @@ def generar_consejos(respuestas):
     
     return recomendaciones
 
+# Función para crear un gráfico de radar
+def crear_grafico_radar(respuestas, categorias):
+    N = len(categorias)
+    
+    # What will be the angle of each axis in the plot? (we divide the plot / number of variables)
+    angles = np.linspace(0, 2 * np.pi, N, endpoint=False).tolist()
+    
+    # The plot is a circle, so we need to "complete the loop" and append the start value to the end.
+    respuestas += respuestas[:1]
+    angles += angles[:1]
+    
+    fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
+    ax.fill(angles, respuestas, color='red', alpha=0.25)
+    ax.plot(angles, respuestas, color='red', linewidth=2)
+    ax.set_yticklabels([])
+    ax.set_xticks(angles[:-1])
+    ax.set_xticklabels(categorias)
+    
+    return fig
+
 # Función para administrar la encuesta
 def administrar_encuesta():
     st.title("Cuestionario de Evaluación de Comportamiento")
@@ -64,6 +86,19 @@ def administrar_encuesta():
         "Tienes que resolver un problema sencillo en casa, como una bombilla fundida. ¿Cómo lo manejas?\nA) Nunca me resulta difícil.\nB) Raramente me resulta difícil.\nC) A menudo me resulta difícil.\nD) Siempre me resulta difícil."
     ]
 
+    conceptos = [
+        "Revisión y planificación",
+        "Evaluación crítica de información",
+        "Consideración de sentimientos ajenos",
+        "Impulsividad en la toma de decisiones",
+        "Interés en el aprendizaje y mejora",
+        "Aceptación de responsabilidad",
+        "Búsqueda de soluciones",
+        "Manejo de consecuencias negativas",
+        "Confianza en datos y evidencia",
+        "Solución de problemas simples"
+    ]
+
     opciones = {'A': 0, 'B': 1, 'C': 2, 'D': 3}
     respuestas = []
 
@@ -77,11 +112,15 @@ def administrar_encuesta():
         puntuacion_total = sum(respuestas)
         st.write(f"Puntuación total: {puntuacion_total}")
         st.write(f"Evaluación: {resultado}")
-        
+
         st.write("### Conceptos Clave y Consejos:")
         recomendaciones = generar_consejos(respuestas)
         for recomendacion in recomendaciones:
             st.write(recomendacion)
+        
+        st.write("### Gráfico de Radar de tus Respuestas:")
+        fig = crear_grafico_radar(respuestas, conceptos)
+        st.pyplot(fig)
 
 # Ejecutar la encuesta en Streamlit
 administrar_encuesta()
