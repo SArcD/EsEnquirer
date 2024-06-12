@@ -12,6 +12,41 @@ def evaluar_comportamiento(respuestas):
     else:
         return "Fuerte tendencia a comportamientos de juicio deficiente."
 
+# Función para generar consejos basados en las respuestas
+def generar_consejos(respuestas):
+    conceptos = [
+        "Revisión y planificación",
+        "Evaluación crítica de información",
+        "Consideración de sentimientos ajenos",
+        "Impulsividad en la toma de decisiones",
+        "Interés en el aprendizaje y mejora",
+        "Aceptación de responsabilidad",
+        "Búsqueda de soluciones",
+        "Manejo de consecuencias negativas",
+        "Confianza en datos y evidencia",
+        "Solución de problemas simples"
+    ]
+    
+    consejos = [
+        "Intenta revisar tus listas y planificación antes de salir de casa.",
+        "Es importante evaluar críticamente la información y pedir pruebas cuando sea necesario.",
+        "Siempre es bueno considerar los sentimientos y necesidades de los demás en tus decisiones.",
+        "Trata de pensar en las consecuencias antes de tomar decisiones impulsivas.",
+        "Mantén un interés constante en aprender y mejorar tus habilidades.",
+        "Aceptar la responsabilidad de tus errores es crucial para el crecimiento personal.",
+        "Buscar soluciones rápidas y efectivas a los problemas cotidianos es una habilidad valiosa.",
+        "Aprender de las consecuencias negativas y ajustar tu comportamiento es importante.",
+        "Confía en datos y evidencia en lugar de supersticiones o teorías infundadas.",
+        "Desarrolla habilidades para resolver problemas simples de manera eficiente."
+    ]
+    
+    recomendaciones = []
+    for i, respuesta in enumerate(respuestas):
+        if respuesta > 1:  # Asumimos que respuestas C (2) y D (3) indican áreas de mejora
+            recomendaciones.append(f"**{conceptos[i]}**: {consejos[i]}")
+    
+    return recomendaciones
+
 # Función para administrar la encuesta
 def administrar_encuesta():
     st.title("Cuestionario de Evaluación de Comportamiento")
@@ -42,6 +77,11 @@ def administrar_encuesta():
         puntuacion_total = sum(respuestas)
         st.write(f"Puntuación total: {puntuacion_total}")
         st.write(f"Evaluación: {resultado}")
+        
+        st.write("### Conceptos Clave y Consejos:")
+        recomendaciones = generar_consejos(respuestas)
+        for recomendacion in recomendaciones:
+            st.write(recomendacion)
 
 # Ejecutar la encuesta en Streamlit
 administrar_encuesta()
